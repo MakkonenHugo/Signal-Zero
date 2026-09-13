@@ -21,11 +21,12 @@ public class CameraFollow : MonoBehaviour
     private Vector3 kickVelocity;
     private float kickTimer;
     private Vector3 kickDirection;
+    private float currentKickAmount;
 
     private void Start()
     {
-        swaySeedX = Random.Range(0f, 100f);
-        swaySeedY = Random.Range(0f, 100f);
+        swaySeedX = Random.Range(0f, 1000f);
+        swaySeedY = swaySeedX + 500f;
     }
 
     private void LateUpdate()
@@ -53,21 +54,22 @@ public class CameraFollow : MonoBehaviour
     {
         if (kickTimer > 0f)
         {
-            kickTimer -= Time.deltaTime;
-            Vector3 target = kickDirection * kickAmount;
-            kickOffset = Vector3.Lerp(kickOffset, target, Time.deltaTime / Mathf.Max(kickDuration, 0.001f));
+            kickTimer -= Time.unscaledDeltaTime;
+            Vector3 target = kickDirection * currentKickAmount;
+            kickOffset = Vector3.Lerp(kickOffset, target, Time.unscaledDeltaTime / Mathf.Max(kickDuration, 0.001f));
         }
         else
         {
-            kickOffset = Vector3.SmoothDamp(kickOffset, Vector3.zero, ref kickVelocity, kickRecoverTime);
+            kickOffset = Vector3.SmoothDamp(kickOffset, Vector3.zero, ref kickVelocity, kickRecoverTime, Mathf.Infinity, Time.unscaledDeltaTime);
         }
     }
 
-    public void Kick(Vector3? direction = null)
+    public void Kick(Vector3? direction = null, float? amountOverride = null)
     {
         kickTimer = kickDuration;
         kickDirection = direction.HasValue
             ? direction.Value.normalized
             : new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), 0f).normalized;
+        currentKickAmount = amountOverride ?? kickAmount;
     }
 }

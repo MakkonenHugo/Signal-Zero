@@ -7,6 +7,7 @@ public class Weapon : MonoBehaviour
     public float range = 20f;
     public float fireRate = 0.25f;
     public bool isAutomatic = false;
+    public float recoilKick = 0.15f;
 
     public Transform firePoint;
     public MuzzleFlash muzzleFlash;
@@ -64,7 +65,7 @@ public class Weapon : MonoBehaviour
             muzzleFlash.Play();
 
         if (cameraFollow != null)
-            cameraFollow.Kick();
+            cameraFollow.Kick(null, recoilKick);
 
         if (audioSource != null && fireSound != null)
             audioSource.PlayOneShot(fireSound);
