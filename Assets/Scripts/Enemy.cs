@@ -5,7 +5,9 @@ public enum EnemyState
     Idle,
     Alert,
     Attacking,
-    Searching
+    Searching,
+    Charging,
+    Retreating
 }
 
 public class Enemy : MonoBehaviour
@@ -18,17 +20,38 @@ public class Enemy : MonoBehaviour
     public float alertDuration = 0.3f;
     public float searchDelay = 1f;
     public float searchArrivalDistance = 0.5f;
+    public float chargeArrivalDistance = 0.5f;
+    public float retreatArrivalDistance = 0.5f;
+    public bool combatEnabled = true;
 
     public bool IsAttacking => state == EnemyState.Attacking;
+
+    public bool HasNotReactedYet => state == EnemyState.Idle || state == EnemyState.Alert;
 
     private EnemyState state = EnemyState.Idle;
     private float alertTimer;
     private float searchDelayTimer;
     private Vector3 lastKnownPosition;
 
+    private Vector3 chargeTargetPosition;
+    private Vector3 retreatTargetPosition;
+
+    public void BeginCharge(Vector3 shooterPosition)
+    {
+        chargeTargetPosition = shooterPosition;
+        lastKnownPosition = shooterPosition;
+        state = EnemyState.Charging;
+    }
+
+    public void BeginRetreatToSpawn(Vector3 spawnPosition)
+    {
+        retreatTargetPosition = spawnPosition;
+        state = EnemyState.Retreating;
+    }
+
     private void Update()
     {
-        bool canSee = vision != null && vision.CanSeeTarget(target);
+        bool canSee = combatEnabled && vision != null && vision.CanSeeTarget(target);
 
         if (canSee && target != null)
         {
@@ -88,6 +111,37 @@ public class Enemy : MonoBehaviour
                     state = EnemyState.Idle;
                 }
                 break;
+
+            case EnemyState.Charging:
+                if (canSee)
+                {
+                    state = EnemyState.Attacking;
+                    break;
+                }
+
+                float distanceToCharge = Vector3.Distance(transform.position, chargeTargetPosition);
+
+                if (distanceToCharge <= chargeArrivalDistance)
+                {
+                    state = EnemyState.Searching;
+                    searchDelayTimer = searchDelay;
+                }
+                break;
+
+            case EnemyState.Retreating:
+                if (canSee)
+                {
+                    state = EnemyState.Attacking;
+                    break;
+                }
+
+                float distanceToSpawn = Vector3.Distance(transform.position, retreatTargetPosition);
+
+                if (distanceToSpawn <= retreatArrivalDistance)
+                {
+                    state = EnemyState.Idle;
+                }
+                break;
         }
 
         if (weapon != null)
@@ -104,6 +158,14 @@ public class Enemy : MonoBehaviour
             else if (state == EnemyState.Searching && searchDelayTimer <= 0f)
             {
                 movement.MoveTo(lastKnownPosition);
+            }
+            else if (state == EnemyState.Charging)
+            {
+                movement.MoveTo(chargeTargetPosition);
+            }
+            else if (state == EnemyState.Retreating)
+            {
+                movement.MoveTowardsLookingAt(retreatTargetPosition, lastKnownPosition);
             }
             else
             {

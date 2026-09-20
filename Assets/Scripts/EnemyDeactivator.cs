@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Events;
 
 public class EnemyDeactivator : MonoBehaviour
 {
@@ -7,6 +8,7 @@ public class EnemyDeactivator : MonoBehaviour
     public Enemy enemy;
     public float deactivateRange = 2f;
     public EnemyDeathHandler deathHandler;
+    public UnityEvent onDeactivated;
 
     public bool IsInRange => IsTargetInRange();
     public bool CanBeDeactivated => CanDeactivate();
@@ -49,5 +51,7 @@ public class EnemyDeactivator : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        onDeactivated.Invoke();
     }
 }

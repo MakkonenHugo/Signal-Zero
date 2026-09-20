@@ -86,7 +86,7 @@ public class Weapon : MonoBehaviour
 
             if (damageable != null)
             {
-                damageable.TakeDamage(damage);
+                damageable.TakeDamage(damage, transform.position);
             }
 
             if (hitEffect != null)

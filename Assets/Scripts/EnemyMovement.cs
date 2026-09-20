@@ -7,7 +7,20 @@ public class EnemyMovement : MonoBehaviour
     public float distanceTolerance = 1.5f;
     public float rotationSpeed = 10f;
 
+    public LayerMask obstacleMask;
+    public float obstacleCheckDistance = 1f;
+    public float avoidCapsuleRadius = 0.4f;
+    public float avoidCapsuleHeight = 1.6f;
+    public float avoidCommitTime = 0.6f;
+    public float avoidClearCheckDistance = 2f;
+
     private CharacterController controller;
+
+    private static readonly float[] AvoidAngles = { 0f, 30f, -30f, 60f, -60f, 90f, -90f };
+
+    private bool isAvoiding;
+    private float avoidAngle;
+    private float avoidTimer;
 
     private void Awake()
     {
@@ -23,19 +36,20 @@ public class EnemyMovement : MonoBehaviour
         toTarget.y = 0f;
         float distance = toTarget.magnitude;
 
-        Vector3 moveDirection = Vector3.zero;
+        Vector3 desiredDirection = Vector3.zero;
 
         if (distance > preferredDistance + distanceTolerance)
         {
-            moveDirection = toTarget.normalized;
+            desiredDirection = toTarget.normalized;
         }
         else if (distance < preferredDistance - distanceTolerance)
         {
-            moveDirection = -toTarget.normalized;
+            desiredDirection = -toTarget.normalized;
         }
 
-        if (moveDirection.sqrMagnitude > 0.01f)
+        if (desiredDirection.sqrMagnitude > 0.01f)
         {
+            Vector3 moveDirection = GetAvoidingDirection(desiredDirection);
             controller.Move(moveDirection * moveSpeed * Time.deltaTime);
         }
 
@@ -48,19 +62,99 @@ public class EnemyMovement : MonoBehaviour
 
     public void MoveTo(Vector3 point)
     {
+        MoveTowardsLookingAt(point, point);
+    }
+
+    public void MoveTowardsLookingAt(Vector3 movePoint, Vector3 lookPoint)
+    {
         if (controller == null)
             return;
 
-        Vector3 toPoint = point - transform.position;
-        toPoint.y = 0f;
+        Vector3 toMovePoint = movePoint - transform.position;
+        toMovePoint.y = 0f;
 
-        if (toPoint.sqrMagnitude > 0.01f)
+        if (toMovePoint.sqrMagnitude > 0.01f)
         {
-            controller.Move(toPoint.normalized * moveSpeed * Time.deltaTime);
+            Vector3 moveDirection = GetAvoidingDirection(toMovePoint.normalized);
+            controller.Move(moveDirection * moveSpeed * Time.deltaTime);
+        }
 
-            Quaternion targetRotation = Quaternion.LookRotation(toPoint.normalized);
+        Vector3 toLookPoint = lookPoint - transform.position;
+        toLookPoint.y = 0f;
+
+        if (toLookPoint.sqrMagnitude > 0.01f)
+        {
+            Quaternion targetRotation = Quaternion.LookRotation(toLookPoint.normalized);
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
         }
+    }
+
+    private Vector3 GetAvoidingDirection(Vector3 desiredDirection)
+    {
+        if (isAvoiding)
+        {
+            avoidTimer -= Time.deltaTime;
+
+            Vector3 committedDirection = Quaternion.Euler(0f, avoidAngle, 0f) * desiredDirection;
+
+            bool committedBlocked = IsBlocked(committedDirection, obstacleCheckDistance);
+            bool desiredClear = !IsBlocked(desiredDirection, avoidClearCheckDistance);
+
+            Debug.Log("AVOIDING angle=" + avoidAngle + " timer=" + avoidTimer.ToString("F2") + " committedBlocked=" + committedBlocked + " desiredClear=" + desiredClear);
+
+            if (avoidTimer <= 0f && desiredClear)
+            {
+                isAvoiding = false;
+                Debug.Log("-> exiting avoid (timer done + clear)");
+            }
+            else if (committedBlocked)
+            {
+                isAvoiding = false;
+                Debug.Log("-> exiting avoid (committed direction now blocked)");
+            }
+            else
+            {
+                return committedDirection;
+            }
+        }
+
+        if (!IsBlocked(desiredDirection, obstacleCheckDistance))
+        {
+            Debug.Log("DIRECT path clear, angle=0");
+            return desiredDirection;
+        }
+
+        for (int i = 1; i < AvoidAngles.Length; i++)
+        {
+            Vector3 candidateDirection = Quaternion.Euler(0f, AvoidAngles[i], 0f) * desiredDirection;
+
+            if (!IsBlocked(candidateDirection, obstacleCheckDistance))
+            {
+                isAvoiding = true;
+                avoidAngle = AvoidAngles[i];
+                avoidTimer = avoidCommitTime;
+                Debug.Log("-> NEW avoid chosen, angle=" + avoidAngle);
+                return candidateDirection;
+            }
+        }
+
+        Debug.Log("ALL directions blocked, returning zero");
+        return Vector3.zero;
+    }
+
+    private bool IsBlocked(Vector3 direction, float checkDistance)
+    {
+        Vector3 point1 = transform.position + Vector3.up * (avoidCapsuleHeight - avoidCapsuleRadius);
+        Vector3 point2 = transform.position + Vector3.up * avoidCapsuleRadius;
+
+        return Physics.CapsuleCast(
+            point1,
+            point2,
+            avoidCapsuleRadius,
+            direction,
+            checkDistance,
+            obstacleMask
+        );
     }
 
     public void Stop()

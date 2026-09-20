@@ -3,10 +3,10 @@ using UnityEngine.SceneManagement;
 
 public class PlayerHealth : MonoBehaviour
 {
-    public int maxHealth = 3;
+    public float maxHealth = 3f;
     public string deathSceneName = "YouDied";
 
-    private int currentHealth;
+    private float currentHealth;
     private bool isDead;
 
     private void Awake()
@@ -14,14 +14,14 @@ public class PlayerHealth : MonoBehaviour
         currentHealth = maxHealth;
     }
 
-    public void TakeDamage(int amount)
+    public void TakeDamage(float amount)
     {
         if (isDead)
             return;
 
         currentHealth -= amount;
 
-        if (currentHealth <= 0)
+        if (currentHealth <= 0f)
         {
             Die();
         }

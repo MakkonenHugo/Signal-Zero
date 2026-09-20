@@ -2,9 +2,10 @@ using UnityEngine;
 
 public class EnemyWeapon : MonoBehaviour
 {
-    public int damage = 1;
+    public float damage = 1f;
     public float range = 20f;
     public float fireRate = 0.5f;
+    public bool isAutomatic = true;
 
     public Transform firePoint;
     public Transform target;
@@ -15,11 +16,26 @@ public class EnemyWeapon : MonoBehaviour
     public AudioSource audioSource;
     public AudioClip fireSound;
 
+    public CharacterController targetController;
+    public float missChanceAtMaxSpeed = 0.6f;
+    public float speedForMaxMissChance = 6f;
+    public float missAngleSpread = 8f;
+
     private float nextFireTime;
+    private Vector3 lastTargetPosition;
+    private bool hasLastTargetPosition;
+    private bool hasFiredThisEngagement;
 
     private void OnEnable()
     {
         nextFireTime = Time.time + fireRate;
+        hasLastTargetPosition = false;
+        hasFiredThisEngagement = false;
+    }
+
+    private void OnDisable()
+    {
+        hasFiredThisEngagement = false;
     }
 
     private void Update()
@@ -27,11 +43,42 @@ public class EnemyWeapon : MonoBehaviour
         if (target == null || firePoint == null)
             return;
 
-        if (Time.time >= nextFireTime)
+        bool wantsToFire = isAutomatic || !hasFiredThisEngagement;
+
+        if (wantsToFire && Time.time >= nextFireTime)
         {
             Shoot();
             nextFireTime = Time.time + fireRate;
+            hasFiredThisEngagement = true;
         }
+    }
+
+    private float GetTargetSpeed()
+    {
+        if (targetController != null)
+        {
+            Vector3 velocity = targetController.velocity;
+            velocity.y = 0f;
+            return velocity.magnitude;
+        }
+
+        if (target == null)
+            return 0f;
+
+        Vector3 currentPosition = target.position;
+
+        if (!hasLastTargetPosition)
+        {
+            lastTargetPosition = currentPosition;
+            hasLastTargetPosition = true;
+            return 0f;
+        }
+
+        Vector3 delta = currentPosition - lastTargetPosition;
+        delta.y = 0f;
+        lastTargetPosition = currentPosition;
+
+        return delta.magnitude / Mathf.Max(Time.deltaTime, 0.0001f);
     }
 
     private void Shoot()
@@ -52,6 +99,17 @@ public class EnemyWeapon : MonoBehaviour
 
         if (Physics.Linecast(transform.position, firePoint.position, obstacleMask))
             return;
+
+        float targetSpeed = GetTargetSpeed();
+        float speedFactor = Mathf.Clamp01(targetSpeed / speedForMaxMissChance);
+        float missChance = speedFactor * missChanceAtMaxSpeed;
+        bool willMiss = Random.value < missChance;
+
+        if (willMiss)
+        {
+            float randomAngle = Random.Range(-missAngleSpread, missAngleSpread);
+            direction = Quaternion.Euler(0f, randomAngle, 0f) * direction;
+        }
 
         RaycastHit[] hits = Physics.RaycastAll(firePoint.position, direction, range);
         System.Array.Sort(hits, (a, b) => a.distance.CompareTo(b.distance));

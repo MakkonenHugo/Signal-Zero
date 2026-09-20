@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class CameraFollow : MonoBehaviour
 {
@@ -14,6 +15,12 @@ public class CameraFollow : MonoBehaviour
     public float kickDuration = 0.08f;
     public float kickRecoverTime = 0.15f;
 
+    public bool allowZoom = true;
+    public float zoomSpeed = 2f;
+    public float minZoomDistance = 4f;
+    public float maxZoomDistance = 14f;
+    public float zoomSmoothTime = 0.15f;
+
     private Vector3 followVelocity;
     private float swaySeedX;
     private float swaySeedY;
@@ -23,10 +30,33 @@ public class CameraFollow : MonoBehaviour
     private Vector3 kickDirection;
     private float currentKickAmount;
 
+    private Vector3 offsetDirection;
+    private float currentZoomDistance;
+    private float targetZoomDistance;
+    private float zoomVelocity;
+
     private void Start()
     {
         swaySeedX = Random.Range(0f, 1000f);
         swaySeedY = swaySeedX + 500f;
+
+        currentZoomDistance = offset.magnitude;
+        targetZoomDistance = currentZoomDistance;
+        offsetDirection = currentZoomDistance > 0.0001f ? offset / currentZoomDistance : Vector3.back;
+    }
+
+    private void Update()
+    {
+        if (!allowZoom || Mouse.current == null)
+            return;
+
+        float scrollValue = Mouse.current.scroll.ReadValue().y;
+
+        if (Mathf.Abs(scrollValue) > 0.01f)
+        {
+            targetZoomDistance -= scrollValue * zoomSpeed * 0.01f;
+            targetZoomDistance = Mathf.Clamp(targetZoomDistance, minZoomDistance, maxZoomDistance);
+        }
     }
 
     private void LateUpdate()
@@ -34,7 +64,10 @@ public class CameraFollow : MonoBehaviour
         if (target == null)
             return;
 
-        Vector3 desiredPosition = target.position + offset;
+        currentZoomDistance = Mathf.SmoothDamp(currentZoomDistance, targetZoomDistance, ref zoomVelocity, zoomSmoothTime);
+        Vector3 zoomedOffset = offsetDirection * currentZoomDistance;
+
+        Vector3 desiredPosition = target.position + zoomedOffset;
         Vector3 smoothedPosition = Vector3.SmoothDamp(transform.position, desiredPosition, ref followVelocity, smoothTime);
 
         Vector3 swayOffset = Vector3.zero;

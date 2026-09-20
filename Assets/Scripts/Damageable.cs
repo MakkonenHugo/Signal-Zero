@@ -1,9 +1,12 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Damageable : MonoBehaviour
 {
     public float maxHealth = 1f;
     public EnemyDeathHandler deathHandler;
+    public EnemyReactionOnHit reactionOnHit;
+    public UnityEvent onDeath;
 
     private float currentHealth;
 
@@ -14,7 +17,17 @@ public class Damageable : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
+        TakeDamage(damage, null);
+    }
+
+    public void TakeDamage(float damage, Vector3? shooterPosition)
+    {
         currentHealth -= damage;
+
+        if (reactionOnHit != null && shooterPosition.HasValue)
+        {
+            reactionOnHit.OnHitBy(shooterPosition.Value);
+        }
 
         if (currentHealth <= 0f)
         {
@@ -37,5 +50,7 @@ public class Damageable : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        onDeath.Invoke();
     }
 }
