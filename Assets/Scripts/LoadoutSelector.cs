@@ -6,6 +6,8 @@ public class LoadoutSelector : MonoBehaviour
     public GameObject pistol;
     public GameObject smg;
 
+    public GameObject rifle;
+
     private void Start()
     {
         Time.timeScale = 0f;
@@ -20,6 +22,9 @@ public class LoadoutSelector : MonoBehaviour
 
         if (smg != null)
             smg.SetActive(false);
+
+        if (rifle != null)
+            rifle.SetActive(false);
     }
 
     public void SelectPistol()
@@ -30,6 +35,9 @@ public class LoadoutSelector : MonoBehaviour
         if (smg != null)
             smg.SetActive(false);
 
+        if (rifle != null)
+            rifle.SetActive(false);
+
         ConfirmSelection();
     }
 
@@ -37,6 +45,22 @@ public class LoadoutSelector : MonoBehaviour
     {
         if (smg != null)
             smg.SetActive(true);
+
+            pistol.SetActive(false);
+
+        if (rifle != null)
+            rifle.SetActive(false);
+
+        ConfirmSelection();
+    }
+
+    public void SelectRifle()
+    {
+        if (rifle != null)
+            rifle.SetActive(true);
+
+        if (smg != null)
+            smg.SetActive(false);
 
         if (pistol != null)
             pistol.SetActive(false);

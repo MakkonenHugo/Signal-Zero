@@ -100,17 +100,13 @@ public class EnemyMovement : MonoBehaviour
             bool committedBlocked = IsBlocked(committedDirection, obstacleCheckDistance);
             bool desiredClear = !IsBlocked(desiredDirection, avoidClearCheckDistance);
 
-            Debug.Log("AVOIDING angle=" + avoidAngle + " timer=" + avoidTimer.ToString("F2") + " committedBlocked=" + committedBlocked + " desiredClear=" + desiredClear);
-
             if (avoidTimer <= 0f && desiredClear)
             {
                 isAvoiding = false;
-                Debug.Log("-> exiting avoid (timer done + clear)");
             }
             else if (committedBlocked)
             {
                 isAvoiding = false;
-                Debug.Log("-> exiting avoid (committed direction now blocked)");
             }
             else
             {
@@ -120,7 +116,6 @@ public class EnemyMovement : MonoBehaviour
 
         if (!IsBlocked(desiredDirection, obstacleCheckDistance))
         {
-            Debug.Log("DIRECT path clear, angle=0");
             return desiredDirection;
         }
 
@@ -133,12 +128,10 @@ public class EnemyMovement : MonoBehaviour
                 isAvoiding = true;
                 avoidAngle = AvoidAngles[i];
                 avoidTimer = avoidCommitTime;
-                Debug.Log("-> NEW avoid chosen, angle=" + avoidAngle);
                 return candidateDirection;
             }
         }
 
-        Debug.Log("ALL directions blocked, returning zero");
         return Vector3.zero;
     }
 

@@ -16,12 +16,16 @@ public class Weapon : MonoBehaviour
     public HitEffect hitEffect;
     public AudioSource audioSource;
     public AudioClip fireSound;
+    public DialogueUI dialogueUI;
 
     private float nextFireTime;
 
     private void Update()
     {
         if (Mouse.current == null)
+            return;
+
+        if (dialogueUI != null && dialogueUI.IsPlaying)
             return;
 
         bool wantsToFire = isAutomatic ? Mouse.current.leftButton.isPressed : Mouse.current.leftButton.wasPressedThisFrame;
@@ -86,7 +90,7 @@ public class Weapon : MonoBehaviour
 
             if (damageable != null)
             {
-                damageable.TakeDamage(damage, transform.position);
+                damageable.TakeDamage(damage);
             }
 
             if (hitEffect != null)

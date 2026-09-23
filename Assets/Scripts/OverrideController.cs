@@ -8,6 +8,7 @@ public class OverrideController : MonoBehaviour
     public float drainRate = 1f;
     public float rechargeRate = 0.5f;
     public float rechargeDelay = 1f;
+    public DialogueUI dialogueUI;
 
     private float currentMeter;
     private bool isActive;
@@ -23,6 +24,9 @@ public class OverrideController : MonoBehaviour
 
     private void Update()
     {
+        if (dialogueUI != null && dialogueUI.IsPlaying)
+            return;
+
         bool wantsOverride = Mouse.current != null && Mouse.current.rightButton.isPressed;
 
         if (wantsOverride && currentMeter > 0f)

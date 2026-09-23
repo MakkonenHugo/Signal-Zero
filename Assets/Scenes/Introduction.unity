@@ -2087,6 +2087,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4050466237912200753, guid: 4838007644ba4b94782d3825eca34be0, type: 3}
+      propertyPath: dialogueUI
+      value: 
+      objectReference: {fileID: 124878323}
     - target: {fileID: 6255450264686621107, guid: 4838007644ba4b94782d3825eca34be0, type: 3}
       propertyPath: cameraFollow
       value: 

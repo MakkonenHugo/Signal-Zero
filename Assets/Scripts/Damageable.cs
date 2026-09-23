@@ -42,6 +42,8 @@ public class Damageable : MonoBehaviour
             RouteTracker.Instance.RegisterKill();
         }
 
+        onDeath.Invoke();
+
         if (deathHandler != null)
         {
             deathHandler.Die();
@@ -50,7 +52,5 @@ public class Damageable : MonoBehaviour
         {
             Destroy(gameObject);
         }
-
-        onDeath.Invoke();
     }
 }

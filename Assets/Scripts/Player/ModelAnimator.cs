@@ -27,7 +27,7 @@ public class ModelAnimator : MonoBehaviour
         Vector3 currentPosition = controller.transform.position;
         Vector3 movement = currentPosition - lastPosition;
         movement.y = 0f;
-        float speed = movement.magnitude / Time.deltaTime;
+        float speed = Time.deltaTime > 0f ? movement.magnitude / Time.deltaTime : 0f;
         lastPosition = currentPosition;
 
         float speedFactor = Mathf.Clamp01(speed / 4f);
