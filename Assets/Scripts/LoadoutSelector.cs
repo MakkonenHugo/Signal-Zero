@@ -5,7 +5,6 @@ public class LoadoutSelector : MonoBehaviour
     public GameObject loadoutPanel;
     public GameObject pistol;
     public GameObject smg;
-
     public GameObject rifle;
 
     private void Start()
@@ -46,6 +45,7 @@ public class LoadoutSelector : MonoBehaviour
         if (smg != null)
             smg.SetActive(true);
 
+        if (pistol != null)
             pistol.SetActive(false);
 
         if (rifle != null)
@@ -70,6 +70,8 @@ public class LoadoutSelector : MonoBehaviour
 
     private void ConfirmSelection()
     {
+        Debug.Log("ConfirmSelection called, loadoutPanel is " + (loadoutPanel != null ? loadoutPanel.name : "null"));
+
         if (loadoutPanel != null)
         {
             loadoutPanel.SetActive(false);
