@@ -1,25 +1,23 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 using System.Collections;
 
 public class LevelTransition : MonoBehaviour
 {
-    public string targetSceneName = "Level kääknagen on paras ou ou ou äää Hugsa mugsa jne HEHEH";
+    public string targetSceneName = "Level2";
     public string playerTag = "Player";
 
-    [Header("Lost Signal Screen ")]
     public bool useLostSignalScreen = false;
     public GameObject lostSignalScreen;
     public float delayBeforeScreen = 1.5f;
     public float delayBeforeLevel = 3f;
 
-    [Header("Soundrh")]
     public AudioSource transitionSound;
 
-    [Header("Fade")]
-    public Image fadeImage;
-    public float fadeOutDuration = 1f;
+    public RectTransform panelTransform;
+    public float panelSlideDuration = 0.6f;
+    public float panelStartOffscreenX = 1600f;
+    public float panelOnscreenX = 0f;
 
     private bool triggered = false;
 
@@ -71,31 +69,34 @@ public class LevelTransition : MonoBehaviour
             transitionSound.Play();
         }
 
-        if (fadeImage != null)
+        if (panelTransform != null)
         {
-            yield return StartCoroutine(FadeOut());
+            yield return StartCoroutine(SlidePanelIn());
         }
 
         SceneManager.LoadScene(targetSceneName);
     }
 
-    IEnumerator FadeOut()
+    IEnumerator SlidePanelIn()
     {
         float elapsed = 0f;
-        Color color = fadeImage.color;
+        Vector2 startPos = new Vector2(-panelStartOffscreenX, panelTransform.anchoredPosition.y);
+        Vector2 endPos = new Vector2(panelOnscreenX, panelTransform.anchoredPosition.y);
 
-        while (elapsed < fadeOutDuration)
+        panelTransform.gameObject.SetActive(true);
+        panelTransform.anchoredPosition = startPos;
+
+        while (elapsed < panelSlideDuration)
         {
             elapsed += Time.unscaledDeltaTime;
-            float t = Mathf.Clamp01(elapsed / fadeOutDuration);
+            float t = Mathf.Clamp01(elapsed / panelSlideDuration);
+            t = t * t * (3f - 2f * t);
 
-            color.a = t;
-            fadeImage.color = color;
+            panelTransform.anchoredPosition = Vector2.Lerp(startPos, endPos, t);
 
             yield return null;
         }
 
-        color.a = 1f;
-        fadeImage.color = color;
+        panelTransform.anchoredPosition = endPos;
     }
 }

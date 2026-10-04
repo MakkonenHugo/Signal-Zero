@@ -7,6 +7,10 @@ public class LoadoutSelector : MonoBehaviour
     public GameObject smg;
     public GameObject rifle;
 
+    public PolaroidWeaponCard pistolCard;
+    public PolaroidWeaponCard smgCard;
+    public PolaroidWeaponCard rifleCard;
+
     private void Start()
     {
         Time.timeScale = 0f;
@@ -24,6 +28,15 @@ public class LoadoutSelector : MonoBehaviour
 
         if (rifle != null)
             rifle.SetActive(false);
+
+        if (pistolCard != null)
+            pistolCard.onSelected = SelectPistol;
+
+        if (smgCard != null)
+            smgCard.onSelected = SelectSmg;
+
+        if (rifleCard != null)
+            rifleCard.onSelected = SelectRifle;
     }
 
     public void SelectPistol()
@@ -70,8 +83,6 @@ public class LoadoutSelector : MonoBehaviour
 
     private void ConfirmSelection()
     {
-        Debug.Log("ConfirmSelection called, loadoutPanel is " + (loadoutPanel != null ? loadoutPanel.name : "null"));
-
         if (loadoutPanel != null)
         {
             loadoutPanel.SetActive(false);
