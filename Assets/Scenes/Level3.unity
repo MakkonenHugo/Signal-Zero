@@ -697,12 +697,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3665931447153284040, guid: 4838007644ba4b94782d3825eca34be0, type: 3}
       propertyPath: fireRate
-      value: 0.004
+      value: 0.07
       objectReference: {fileID: 0}
     - target: {fileID: 3665931447153284040, guid: 4838007644ba4b94782d3825eca34be0, type: 3}
       propertyPath: dialogueUI
       value: 
       objectReference: {fileID: 636213900}
+    - target: {fileID: 3665931447153284040, guid: 4838007644ba4b94782d3825eca34be0, type: 3}
+      propertyPath: recoilKick
+      value: 0.05
+      objectReference: {fileID: 0}
     - target: {fileID: 3665931447153284040, guid: 4838007644ba4b94782d3825eca34be0, type: 3}
       propertyPath: cameraFollow
       value: 

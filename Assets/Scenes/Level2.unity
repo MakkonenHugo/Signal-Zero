@@ -768,6 +768,63 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 513211478e72c784093c4f01eee9ffa8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PolaroidWeaponCard
+--- !u!1001 &778766460
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2106275663910192940, guid: f2c018f9fc7d5564ab7f499a88e1e8dd, type: 3}
+      propertyPath: m_Name
+      value: DefaultBG
+      objectReference: {fileID: 0}
+    - target: {fileID: 5796777017755190060, guid: f2c018f9fc7d5564ab7f499a88e1e8dd, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -37.192257
+      objectReference: {fileID: 0}
+    - target: {fileID: 5796777017755190060, guid: f2c018f9fc7d5564ab7f499a88e1e8dd, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -3.06
+      objectReference: {fileID: 0}
+    - target: {fileID: 5796777017755190060, guid: f2c018f9fc7d5564ab7f499a88e1e8dd, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 18.22899
+      objectReference: {fileID: 0}
+    - target: {fileID: 5796777017755190060, guid: f2c018f9fc7d5564ab7f499a88e1e8dd, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5796777017755190060, guid: f2c018f9fc7d5564ab7f499a88e1e8dd, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5796777017755190060, guid: f2c018f9fc7d5564ab7f499a88e1e8dd, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5796777017755190060, guid: f2c018f9fc7d5564ab7f499a88e1e8dd, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5796777017755190060, guid: f2c018f9fc7d5564ab7f499a88e1e8dd, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5796777017755190060, guid: f2c018f9fc7d5564ab7f499a88e1e8dd, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5796777017755190060, guid: f2c018f9fc7d5564ab7f499a88e1e8dd, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: f2c018f9fc7d5564ab7f499a88e1e8dd, type: 3}
 --- !u!1001 &866656705
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1420,9 +1477,17 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 460518796944803333, guid: 4838007644ba4b94782d3825eca34be0, type: 3}
+      propertyPath: dialogueUI
+      value: 
+      objectReference: {fileID: 1010005291}
+    - target: {fileID: 460518796944803333, guid: 4838007644ba4b94782d3825eca34be0, type: 3}
       propertyPath: recoilKick
-      value: 0.0005
+      value: 0.0001
       objectReference: {fileID: 0}
+    - target: {fileID: 460518796944803333, guid: 4838007644ba4b94782d3825eca34be0, type: 3}
+      propertyPath: cameraFollow
+      value: 
+      objectReference: {fileID: 1910715870}
     - target: {fileID: 3199905047308815468, guid: 4838007644ba4b94782d3825eca34be0, type: 3}
       propertyPath: maxHealth
       value: 5
@@ -1503,6 +1568,10 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 6910925551776002993, guid: 4838007644ba4b94782d3825eca34be0, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: 24300002, guid: 7bd060d2bd4b8e444a04506d1cb8d6fe, type: 2}
     - target: {fileID: 8224588143643735656, guid: 4838007644ba4b94782d3825eca34be0, type: 3}
       propertyPath: darkenOverlay
       value: 
@@ -2372,7 +2441,7 @@ MonoBehaviour:
   sway: 0
   swayAmount: 0.02
   swaySpeed: 0.15
-  kickAmount: 0.15
+  kickAmount: 0.001
   kickDuration: 0.08
   kickRecoverTime: 0.15
   allowZoom: 1
@@ -3820,3 +3889,4 @@ SceneRoots:
   - {fileID: 1951901147}
   - {fileID: 1136033481}
   - {fileID: 6335606677124530682}
+  - {fileID: 778766460}

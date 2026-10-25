@@ -102,7 +102,7 @@ public class CameraFollow : MonoBehaviour
         kickTimer = kickDuration;
         kickDirection = direction.HasValue
             ? direction.Value.normalized
-            : new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), 0f).normalized;
+            : new Vector3(Random.Range(-1f, 1f), 0f, Random.Range(-1f, 1f)).normalized;
         currentKickAmount = amountOverride ?? kickAmount;
     }
 }

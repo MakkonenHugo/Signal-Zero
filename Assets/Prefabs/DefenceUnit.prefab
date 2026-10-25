@@ -172,6 +172,7 @@ MonoBehaviour:
   searchArrivalDistance: 0.5
   chargeArrivalDistance: 0.5
   retreatArrivalDistance: 0.5
+  combatEnabled: 1
 --- !u!114 &168455207994786013
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -208,7 +209,7 @@ MonoBehaviour:
   rotationSpeed: 10
   obstacleMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   obstacleCheckDistance: 1
   avoidCapsuleRadius: 0.4
   avoidCapsuleHeight: 1.6
@@ -248,6 +249,9 @@ MonoBehaviour:
   enemy: {fileID: 7516736169859039263}
   deactivateRange: 2
   deathHandler: {fileID: 4658644528407546661}
+  onDeactivated:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &4658644528407546661
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -482,6 +486,7 @@ MonoBehaviour:
   damage: 1
   range: 20
   fireRate: 0.5
+  isAutomatic: 1
   firePoint: {fileID: 4496218274949081799}
   target: {fileID: 0}
   muzzleFlash: {fileID: 1709850189448121796}
