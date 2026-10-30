@@ -7,4 +7,9 @@ The game follows an story of Gary Knox living in the year 3012, every country ha
 You can move Gary with WASD, you aim using the mouse, you shoot with left click, you activate OVERDRIVE by holding right click, OVERDRIVE slows down time but recoil is harder to control and your screen goes dark if you use it too much at the same time, you can zoom in/out with the scroll wheel. TIP: Zoom out to and aim to the back of the enemy you are facing make recoil easier to control!
 
 ## Why did i make this game and how was it made
-I made this project for the Stardance Challenge hosted by Hackclub, i made this game with Unity, the models are ALL made by me in blockbench and the scripts are made in C#
+I made this project for the Stardance Challenge hosted by Hackclub, i made this game with Unity, the models are ALL made by me in blockbench and the scripts are made in C# And the soundtracks are made in LMMS!
+
+
+
+## AI usage and other stuff
+I used AI in making some of the scripts in the game, some scripts are AI assisted and some scripts are just AI. I have earned prizes for this project and i cant thank Hackclub enough for this opportunity
