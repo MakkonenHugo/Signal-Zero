@@ -749,6 +749,7 @@ GameObject:
   - component: {fileID: 756357213}
   - component: {fileID: 756357212}
   - component: {fileID: 756357211}
+  - component: {fileID: 756357214}
   m_Layer: 5
   m_Name: QuitButton
   m_TagString: Untagged
@@ -870,6 +871,66 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 756357209}
   m_CullTransparentMesh: 1
+--- !u!114 &756357214
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 756357209}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9301db21978d9f43bd7509bc2263d3a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GlitchButtonHover
+  buttonBaseColor: {r: 0.16, g: 0.16, b: 0.18, a: 1}
+  glitchDuration: 0.55
+  stepIntervalRange: {x: 0.05, y: 0.14}
+  intensityOverTime:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0.7
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 0.3
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  positionJitter: 2.5
+  scaleJitter: 0.015
+  rotationJitter: 0.8
+  useRgbSplit: 1
+  channelColorA: {r: 1, g: 0.15, b: 0.35, a: 1}
+  channelColorB: {r: 0.1, g: 0.9, b: 1, a: 1}
+  channelColorC: {r: 0.7, g: 1, b: 0.2, a: 1}
+  rgbSplitOffset: 3
+  ghostAlpha: 0.5
+  colorFlickerChance: 0.25
+  solidFlickerColor: {r: 0.6, g: 0.9, b: 1, a: 1}
+  useEdgeStreaks: 1
+  maxStreaks: 3
+  streakSpawnChance: 0.35
+  streakThickness: 2
+  streakLengthMin: 8
+  streakLengthMax: 30
+  streakColor: {r: 0.85, g: 0.95, b: 1, a: 0.8}
+  idleGlitchEnabled: 0
+  idleIntervalRange: {x: 3, y: 8}
+  idleGlitchDuration: 0.2
 --- !u!1 &920545102
 GameObject:
   m_ObjectHideFlags: 0
@@ -1130,6 +1191,7 @@ GameObject:
   - component: {fileID: 1186381590}
   - component: {fileID: 1186381589}
   - component: {fileID: 1186381588}
+  - component: {fileID: 1186381591}
   m_Layer: 5
   m_Name: OptionsButton
   m_TagString: Untagged
@@ -1251,6 +1313,66 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1186381586}
   m_CullTransparentMesh: 1
+--- !u!114 &1186381591
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1186381586}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9301db21978d9f43bd7509bc2263d3a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GlitchButtonHover
+  buttonBaseColor: {r: 0.16, g: 0.16, b: 0.18, a: 1}
+  glitchDuration: 0.55
+  stepIntervalRange: {x: 0.05, y: 0.14}
+  intensityOverTime:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0.7
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 0.3
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  positionJitter: 2.5
+  scaleJitter: 0.015
+  rotationJitter: 0.8
+  useRgbSplit: 1
+  channelColorA: {r: 1, g: 0.15, b: 0.35, a: 1}
+  channelColorB: {r: 0.1, g: 0.9, b: 1, a: 1}
+  channelColorC: {r: 0.7, g: 1, b: 0.2, a: 1}
+  rgbSplitOffset: 3
+  ghostAlpha: 0.5
+  colorFlickerChance: 0.25
+  solidFlickerColor: {r: 0.6, g: 0.9, b: 1, a: 1}
+  useEdgeStreaks: 1
+  maxStreaks: 3
+  streakSpawnChance: 0.35
+  streakThickness: 2
+  streakLengthMin: 8
+  streakLengthMax: 30
+  streakColor: {r: 0.85, g: 0.95, b: 1, a: 0.8}
+  idleGlitchEnabled: 0
+  idleIntervalRange: {x: 3, y: 8}
+  idleGlitchDuration: 0.2
 --- !u!1 &1193274770
 GameObject:
   m_ObjectHideFlags: 0

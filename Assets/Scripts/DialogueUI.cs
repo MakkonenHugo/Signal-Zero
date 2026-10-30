@@ -18,6 +18,13 @@ public class DialogueUI : MonoBehaviour
     public TMP_Text dialogueText;
     public float typeSpeed = 0.03f;
 
+    [Header("Typing Sound")]
+    public AudioSource typingAudioSource;
+    public AudioClip typingBlipSound;
+    [Range(0f, 1f)] public float typingBlipVolume = 0.5f;
+    public Vector2 pitchRandomRange = new Vector2(0.95f, 1.05f);
+    public bool skipSoundOnWhitespace = true;
+
     private bool advanceRequested;
     private bool isPlaying;
 
@@ -57,8 +64,21 @@ public class DialogueUI : MonoBehaviour
         foreach (char letter in line.text)
         {
             dialogueText.text += letter;
+            PlayTypingBlip(letter);
             yield return new WaitForSecondsRealtime(typeSpeed);
         }
+    }
+
+    private void PlayTypingBlip(char letter)
+    {
+        if (typingAudioSource == null || typingBlipSound == null)
+            return;
+
+        if (skipSoundOnWhitespace && char.IsWhiteSpace(letter))
+            return;
+
+        typingAudioSource.pitch = Random.Range(pitchRandomRange.x, pitchRandomRange.y);
+        typingAudioSource.PlayOneShot(typingBlipSound, typingBlipVolume);
     }
 
     private IEnumerator WaitForAdvance()
