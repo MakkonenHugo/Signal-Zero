@@ -489,7 +489,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3b152c64b62d064e830e28208a7a249, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CutsceneShot
-  nextSceneName: Level6
+  nextSceneName: Level6_Containment
   playerTag: Player
   player: {fileID: 1299643730}
   shooter: {fileID: 550251683}
@@ -1572,71 +1572,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 8686905464242370237, guid: 416129cf3f8461e41bff41935a677c25, type: 3}
---- !u!1001 &2089862362
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 1176499714937358204, guid: 6e759e6ac3e9e634b8bc9af2411a2764, type: 3}
-      propertyPath: m_Resource
-      value: 
-      objectReference: {fileID: 8300000, guid: ad6169413f119824a9550cbe846ec6fd, type: 3}
-    - target: {fileID: 1176499714937358204, guid: 6e759e6ac3e9e634b8bc9af2411a2764, type: 3}
-      propertyPath: OutputAudioMixerGroup
-      value: 
-      objectReference: {fileID: 24300002, guid: 7bd060d2bd4b8e444a04506d1cb8d6fe, type: 2}
-    - target: {fileID: 4997474926041231734, guid: 6e759e6ac3e9e634b8bc9af2411a2764, type: 3}
-      propertyPath: m_Name
-      value: Kukkudaa(music)
-      objectReference: {fileID: 0}
-    - target: {fileID: 8983519493743409597, guid: 6e759e6ac3e9e634b8bc9af2411a2764, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -4.6182
-      objectReference: {fileID: 0}
-    - target: {fileID: 8983519493743409597, guid: 6e759e6ac3e9e634b8bc9af2411a2764, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8983519493743409597, guid: 6e759e6ac3e9e634b8bc9af2411a2764, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 16.81732
-      objectReference: {fileID: 0}
-    - target: {fileID: 8983519493743409597, guid: 6e759e6ac3e9e634b8bc9af2411a2764, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8983519493743409597, guid: 6e759e6ac3e9e634b8bc9af2411a2764, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8983519493743409597, guid: 6e759e6ac3e9e634b8bc9af2411a2764, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8983519493743409597, guid: 6e759e6ac3e9e634b8bc9af2411a2764, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8983519493743409597, guid: 6e759e6ac3e9e634b8bc9af2411a2764, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8983519493743409597, guid: 6e759e6ac3e9e634b8bc9af2411a2764, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8983519493743409597, guid: 6e759e6ac3e9e634b8bc9af2411a2764, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 6e759e6ac3e9e634b8bc9af2411a2764, type: 3}
 --- !u!1001 &2110167089
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1777,4 +1712,3 @@ SceneRoots:
   - {fileID: 839920456}
   - {fileID: 655312442}
   - {fileID: 1846727029}
-  - {fileID: 2089862362}
